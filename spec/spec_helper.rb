@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "event"
+require "schedule"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
