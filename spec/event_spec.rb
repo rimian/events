@@ -12,4 +12,10 @@ RSpec.describe Event do
   it "has a end" do
     expect(subject.end_date).to eq end_date
   end
+
+  describe "#to_s" do
+    it "is a human readable string" do
+      expect(subject.to_s).to eq "start: #{start_date}, end: #{end_date}"
+    end
+  end
 end
