@@ -7,3 +7,4 @@
 * The start date is before the end date
 * It's a local time zone.
 * The events only have attributes: start and end dates.
+* The list of events is formatted correctly
