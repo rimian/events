@@ -23,6 +23,9 @@ RSpec.describe Schedule do
     subject.booked = booked
   end
 
+  it { should respond_to :booked }
+  it { should respond_to :not_booked }
+
   it 'overlaps' do
     expect(subject.overlaps?((2...9), (7..11))).to eq true
   end
@@ -31,6 +34,21 @@ RSpec.describe Schedule do
     expect(subject.events).to eq events
   end
 
-  it { should respond_to :booked }
-  it { should respond_to :not_booked }
+  describe 'booked schedule' do
+    it 'has an event on Sunday' do
+      subject.events = [DateTime.parse('Sun, 23 Dec 2018 16:00:00')]
+      aggregate_failures do
+        expect(subject.weekly_schedule.first).not_to be_empty
+        expect(subject.weekly_schedule.reject(&:empty?).length).to eq 1
+      end
+    end
+
+    it 'has two events on Monday' do
+      subject.events = [DateTime.parse('Mon, 24 Dec 2018 16:00:00'), DateTime.parse('Mon, 24 Dec 2018 10:00:00')]
+      aggregate_failures do
+        expect(subject.weekly_schedule[1].length).to eq 2
+        expect(subject.weekly_schedule.reject(&:empty?).length).to eq 1
+      end
+    end
+  end
 end
