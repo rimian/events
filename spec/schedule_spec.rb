@@ -3,21 +3,30 @@ require 'spec_helper'
 RSpec.describe Schedule do
   let(:subject) { described_class.new }
 
-  describe "available event" do
-    let(:events) {
-      []
-    }
+  let(:events) {
+    [
+      Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00'),
+      Event.new('2018-12-20 9:30:00', '2018-12-20 11:30:00'),
+      Event.new('2018-12-21 9:00:00', '2018-12-20 11:00:00')
+    ]
+  }
 
-    before do
-      subject.events = events
-    end
+  let(:booked) {
+    [
+      Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00'),
+      Event.new('2018-12-20 9:00:00', '2018-12-20 10:00:00')
+    ]
+  }
 
-    it "has a list of available events" do
-      expect(subject.available).to eq events
-    end
+  before do
+    subject.events = events
+    subject.booked = booked
   end
 
-  it "has a list of already booked events" do
-    expect(subject).to respond_to :already_booked
+  it "has a list of events" do
+    expect(subject.events).to eq events
   end
+
+  it { should respond_to :booked }
+  it { should respond_to :not_booked }
 end

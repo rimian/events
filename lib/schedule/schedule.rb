@@ -1,9 +1,5 @@
 
 class Schedule
-  attr_reader :already_booked, :available
-  attr_writer :events
-
-  def available
-    @events
-  end
+  attr_accessor :booked, :events
+  attr_reader :not_booked
 end
