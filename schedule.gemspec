@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.description = %q{An event schedule display}
   s.files = Dir['lib/**/*.rb']
   s.test_files = ["spec/"]
+  s.add_dependency 'activesupport'
   s.homepage = %q{http://rubygems.org/gems}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.6.2}

@@ -23,6 +23,10 @@ RSpec.describe Schedule do
     subject.booked = booked
   end
 
+  it 'overlaps' do
+    expect(subject.overlaps?((2...9), (7..11))).to eq true
+  end
+
   it "has a list of events" do
     expect(subject.events).to eq events
   end
