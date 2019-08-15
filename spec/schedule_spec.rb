@@ -14,8 +14,15 @@ RSpec.describe Schedule do
   describe '#not_booked' do
     it 'does not clash' do
       subject.events << double('Event', wday: 6)
+      subject.events << double('Event', wday: 1)
       subject.booked = []
       expect(subject.not_booked).to eq subject.events
+    end
+
+    it 'clashes on Thursday' do
+      subject.events << double('Event', wday: 4)
+      subject.booked << double('Event', wday: 4) # Clash!
+      expect(subject.not_booked).to be_empty
     end
   end
 

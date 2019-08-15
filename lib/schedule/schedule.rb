@@ -16,13 +16,13 @@ class Schedule
 
     booked.each do |event|
       # TODO: push time on to schedule
-      days[event.wday] << event
+      days[event.wday] << 'hh:ss'
     end
 
     days
   end
 
   def not_booked
-    events
+    events.reject { |e| e.wday == 4 }
   end
 end
