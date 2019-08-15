@@ -5,12 +5,12 @@ RSpec.describe Event do
   let(:end_date) { '2018-12-19 17:00:00' }
   let(:subject) { described_class.new(start_date, end_date) }
 
-  it 'has a start' do
-    expect(subject.start_date).to eq start_date
+  it 'has a start date time' do
+    expect(subject.start_date).to be_kind_of DateTime
   end
 
-  it 'has an end' do
-    expect(subject.end_date).to eq end_date
+  it 'has an end date time' do
+    expect(subject.end_date).to be_kind_of DateTime
   end
 
   describe '#to_s' do

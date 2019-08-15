@@ -9,3 +9,4 @@
 * It's a local time zone.
 * The events only have attributes: start and end dates.
 * The list of events is formatted correctly
+* An event has a start and end on the same day
