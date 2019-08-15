@@ -36,7 +36,8 @@ RSpec.describe Schedule do
 
   describe 'booked schedule' do
     it 'has an event on Sunday' do
-      subject.events = [DateTime.parse('Sun, 23 Dec 2018 16:00:00')]
+      event = double('Event', wday: 0)
+      subject.events = [event]
       aggregate_failures do
         expect(subject.weekly_schedule.first).not_to be_empty
         expect(subject.weekly_schedule.reject(&:empty?).length).to eq 1
@@ -44,7 +45,8 @@ RSpec.describe Schedule do
     end
 
     it 'has two events on Monday' do
-      subject.events = [DateTime.parse('Mon, 24 Dec 2018 16:00:00'), DateTime.parse('Mon, 24 Dec 2018 10:00:00')]
+      event = double('Event', wday: 1)
+      subject.events = [event, event]
       aggregate_failures do
         expect(subject.weekly_schedule[1].length).to eq 2
         expect(subject.weekly_schedule.reject(&:empty?).length).to eq 1
