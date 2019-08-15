@@ -1,6 +1,5 @@
 class Schedule
   attr_accessor :booked, :events
-  attr_reader :not_booked
 
   def initialize
     @events = []
@@ -12,7 +11,7 @@ class Schedule
   end
 
   def weekly_schedule
-    days = (0...6).to_a.map { [] }
+    days = (0...7).to_a.map { [] }
 
     booked.each do |event|
       # TODO: push time on to schedule
@@ -23,6 +22,7 @@ class Schedule
   end
 
   def not_booked
-    events.reject { |e| e.wday == 4 }
+    days_booked = weekly_schedule.map.with_index { |day, i| i unless day.empty? }.compact
+    events.reject { |e| days_booked.include?(e.wday) }
   end
 end

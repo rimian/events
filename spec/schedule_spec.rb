@@ -12,21 +12,41 @@ RSpec.describe Schedule do
   end
 
   describe '#not_booked' do
-    it 'does not clash' do
+    it 'has nothing booked' do
+      expect(subject.not_booked).to be_empty
+    end
+
+    it 'has all the events when nothing is booked' do
       subject.events << double('Event', wday: 6)
       subject.events << double('Event', wday: 1)
       subject.booked = []
       expect(subject.not_booked).to eq subject.events
     end
 
+    it 'does not clash when the events do not clash' do
+      subject.events << double('Event', wday: 6)
+      subject.booked << double('Event', wday: 1)
+      expect(subject.not_booked).to eq subject.events
+    end
+
     it 'clashes on Thursday' do
       subject.events << double('Event', wday: 4)
-      subject.booked << double('Event', wday: 4) # Clash!
+      subject.booked << double('Event', wday: 4)
+      expect(subject.not_booked).to be_empty
+    end
+
+    it 'clashes on Saturday' do
+      subject.events << double('Event', wday: 6)
+      subject.booked << double('Event', wday: 6)
       expect(subject.not_booked).to be_empty
     end
   end
 
   describe 'booked schedule' do
+    it 'has an empty schedule' do
+      expect(subject.weekly_schedule).to eq([[], [], [], [], [], [], []])
+    end
+
     it 'has an event on Sunday' do
       subject.booked << double('Event', wday: 0)
       aggregate_failures do
