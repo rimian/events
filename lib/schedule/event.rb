@@ -7,6 +7,7 @@ class Event
   end
 
   def to_s
-    "start: #{start_date}, end: #{end_date}"
+    format = '%Y-%m-%d %T'
+    "start: #{start_date.strftime(format)}, end: #{end_date.strftime(format)}"
   end
 end
