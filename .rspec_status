@@ -1,7 +1,0 @@
-example_id                     | status | run_time        |
------------------------------- | ------ | --------------- |
-./spec/event_spec.rb[1:1]      | passed | 0.00038 seconds |
-./spec/event_spec.rb[1:2]      | passed | 0.00008 seconds |
-./spec/event_spec.rb[1:3:1]    | passed | 0.00006 seconds |
-./spec/schedule_spec.rb[1:1:1] | passed | 0.00007 seconds |
-./spec/schedule_spec.rb[1:2]   | passed | 0.00072 seconds |

@@ -1,5 +1,4 @@
 require "bundler/setup"
-require "event"
 require "schedule"
 
 RSpec.configure do |config|
