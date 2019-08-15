@@ -10,4 +10,14 @@ class Event
     format = '%Y-%m-%d %T'
     "start: #{start_date.strftime(format)}, end: #{end_date.strftime(format)}"
   end
+
+  def wday
+    start_date.wday
+  end
+
+  private
+
+  def seconds(hours, minutes, seconds)
+    (hours.hours + minutes.minutes + seconds.seconds).seconds
+  end
 end
