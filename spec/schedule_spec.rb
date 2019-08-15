@@ -7,7 +7,6 @@ RSpec.describe Schedule do
   it { should respond_to :events }
 
   it 'overlaps' do
-    # TODO: move this into event
     expect(subject.overlaps?((2...9), (7..11))).to eq true
   end
 

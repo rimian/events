@@ -15,9 +15,13 @@ class Event
     start_date.wday
   end
 
+  def to_range
+    (seconds(start_date)...seconds(end_date))
+  end
+
   private
 
-  def seconds(hours, minutes, seconds)
-    (hours.hours + minutes.minutes + seconds.seconds).seconds
+  def seconds(date)
+    (date.hour.hours + date.minute.minutes + date.second.seconds).seconds
   end
 end

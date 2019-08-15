@@ -11,7 +11,7 @@ class Schedule
   end
 
   def weekly_schedule
-    days = (0...7).to_a.map { [] }
+    days = (0..6).to_a.map { [] }
 
     booked.each do |event|
       # TODO: push time on to schedule
