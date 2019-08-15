@@ -2,6 +2,11 @@ class Schedule
   attr_accessor :booked, :events
   attr_reader :not_booked
 
+  def initialize
+    @events = []
+    @booked = []
+  end
+
   def overlaps?(time1, time2)
     time1.overlaps?(time2)
   end
@@ -15,5 +20,9 @@ class Schedule
     end
 
     days
+  end
+
+  def not_booked
+    events
   end
 end
