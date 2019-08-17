@@ -40,7 +40,6 @@ Run it:
 ## Assumptions
 
 * The date time format can be parsed by `DateTime`
-* 24 hour time is used
 * The start date is before the end date
 * The dates can be in the past and the future
 * It's a local time zone.
