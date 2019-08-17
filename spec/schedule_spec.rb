@@ -13,7 +13,7 @@ RSpec.describe Schedule do
       expect(subject.overlaps_time?(event_1, event_2)).to eq true
     end
 
-    it 'overlaps times on any same day' do
+    it 'overlaps times on any day' do
       event_1 = Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
       event_2 = Event.new('2018-12-20 16:30:00', '2018-12-20 17:30:00')
       expect(subject.overlaps_time?(event_1, event_2)).to eq true
