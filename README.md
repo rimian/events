@@ -22,9 +22,11 @@ Create an event:
 
 Where start and end dates are valid date strings that can be parsed by `DateTime`
 
-`schedule = Schedule.new`
-`available = Event.new(start_state, end_date)`
-`booked = Event.new(start_state, end_date)`
+```
+schedule = Schedule.new
+available = Event.new(start_state, end_date)
+booked = Event.new(start_state, end_date)
+```
 
 ```
 schedule.events << available
