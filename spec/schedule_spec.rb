@@ -14,19 +14,19 @@ RSpec.describe Schedule do
     it 'has all the events when nothing is booked' do
       subject.events << Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
       subject.booked = []
-      expect(subject.not_booked).to eq subject.events.map(&:to_s)
+      expect(subject.not_booked).to eq subject.events
     end
 
     it 'does not clash when the events do not clash on the same ady' do
       subject.events << Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
       subject.booked << Event.new('2018-12-19 18:00:00', '2018-12-19 19:00:00')
-      expect(subject.not_booked).to eq subject.events.map(&:to_s)
+      expect(subject.not_booked).to eq subject.events
     end
 
     it 'does not clash when the events do not clash on different days' do
       subject.events << Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
       subject.booked << Event.new('2018-12-20 16:00:00', '2018-12-20 17:00:00')
-      expect(subject.not_booked).to eq subject.events.map(&:to_s)
+      expect(subject.not_booked).to eq subject.events
     end
 
     it 'does not show the event that clashes on the same actual day' do

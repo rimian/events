@@ -37,7 +37,7 @@ class Schedule
       clashes
     end
 
-    available.map(&:to_s)
+    available
   end
 
   private

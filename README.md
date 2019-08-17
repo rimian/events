@@ -37,6 +37,30 @@ Run it:
 
 `schedule.not_booked`
 
+Human readable:
+
+`schedule.not_booked.map(&:to_s)`
+
+##Exanple
+
+```
+already_booked = [
+  Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00'),
+  Event.new('2018-12-20 9:00:00', '2018-12-20 10:00:00')
+]
+
+available = [
+  Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00'),
+  Event.new('2018-12-20 9:30:00', '2018-12-20 11:30:00'),
+  Event.new('2018-12-21 9:00:00', '2018-12-20 11:00:00')
+]
+
+schedule = Schedule.new
+schedule.events = available
+schedule.booked = already_booked
+schedule.not_booked.map(&:to_s) # ["start: 2018-12-21 09:00:00, end: 2018-12-20 11:00:00"]
+```
+
 ## Assumptions
 
 * The date time format can be parsed by `DateTime`
@@ -51,3 +75,5 @@ Run it:
 
 * Parse the dates and send `DateTime` to `Events`
 * Support events on more than one day
+* Fix the mistake in the data in the example.
+* Validate events 
