@@ -15,7 +15,7 @@ class Event
     start_date.wday
   end
 
-  def to_range
+  def time_to_range
     (seconds(start_date)...seconds(end_date))
   end
 

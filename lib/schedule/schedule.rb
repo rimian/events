@@ -7,7 +7,7 @@ class Schedule
   end
 
   def overlaps_time?(event_1, event_2)
-    overlaps?(event_1.to_range, event_2.to_range)
+    overlaps?(event_1.time_to_range, event_2.time_to_range)
   end
 
   def weekly_schedule
