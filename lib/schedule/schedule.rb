@@ -27,7 +27,7 @@ class Schedule
   def not_booked
     events.reject do |available_event|
       clashes = booked.select do |booked_event|
-        overlaps_time?(available_event, booked_event)
+        clashes?(available_event, booked_event)
       end
 
       clashes.length.positive?

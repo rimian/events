@@ -17,15 +17,27 @@ RSpec.describe Schedule do
       expect(subject.not_booked).to eq subject.events
     end
 
-    it 'does not clash when the events do not clash' do
+    it 'does not clash when the events do not clash on the same ady' do
       subject.events << Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
       subject.booked << Event.new('2018-12-19 18:00:00', '2018-12-19 19:00:00')
       expect(subject.not_booked).to eq subject.events
     end
 
-    it 'does not show the event that clashes' do
+    it 'does not clash when the events do not clash on different days' do
+      subject.events << Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
+      subject.booked << Event.new('2018-12-20 16:00:00', '2018-12-20 17:00:00')
+      expect(subject.not_booked).to eq subject.events
+    end
+
+    it 'does not show the event that clashes on the same actual day' do
       subject.events << Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
       subject.booked << Event.new('2018-12-19 16:15:00', '2018-12-19 15:00:00')
+      expect(subject.not_booked).to be_empty
+    end
+
+    it 'does not show the event that clashes on the same week day' do
+      subject.events << Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
+      subject.booked << Event.new('2018-12-26 16:15:00', '2018-12-26 15:00:00')
       expect(subject.not_booked).to be_empty
     end
   end
