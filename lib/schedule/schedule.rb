@@ -20,6 +20,10 @@ class Schedule
     week
   end
 
+  def clashes?(event_one, event_two)
+    event_one.week_day == event_two.week_day && overlaps_time?(event_one, event_two)
+  end
+
   def not_booked
     events.reject do |available_event|
       clashes = booked.select do |booked_event|

@@ -63,8 +63,28 @@ RSpec.describe Schedule do
     end
   end
 
+  describe '#clashes?' do
+    it 'clashes on the same time on the same week day' do
+      event = double('Event', week_day: 'Mon')
+      expect(subject).to receive(:overlaps_time?).and_return(true)
+      expect(subject.clashes?(event, event)).to eq true
+    end
+
+    it 'does not clash on a different time' do
+      event = double('Event', week_day: 'Mon')
+      expect(subject).to receive(:overlaps_time?).and_return(false)
+      expect(subject.clashes?(event, event)).to eq false
+    end
+
+    it 'does not clash on a different days' do
+      event_one = double('Event', week_day: 'Mon')
+      event_two = double('Event', week_day: 'Fri')
+      expect(subject.clashes?(event_one, event_two)).to eq false
+    end
+  end
+
   describe '#overlaps_time?' do
-    it 'overlaps times on the same day' do
+    it 'overlaps times on the same actual day' do
       event_one = Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
       event_two = Event.new('2018-12-19 16:30:00', '2018-12-19 17:30:00')
       expect(subject.overlaps_time?(event_one, event_two)).to eq true
