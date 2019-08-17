@@ -6,8 +6,30 @@ RSpec.describe Schedule do
   it { should respond_to :booked }
   it { should respond_to :events }
 
-  it 'overlaps' do
-    expect(subject.overlaps?((2...9), (7..11))).to eq true
+  describe '#overlaps_time?' do
+    it 'overlaps times on the same day' do
+      event_1 = Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
+      event_2 = Event.new('2018-12-19 16:30:00', '2018-12-19 17:30:00')
+      expect(subject.overlaps_time?(event_1, event_2)).to eq true
+    end
+
+    it 'overlaps times on any same day' do
+      event_1 = Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
+      event_2 = Event.new('2018-12-20 16:30:00', '2018-12-20 17:30:00')
+      expect(subject.overlaps_time?(event_1, event_2)).to eq true
+    end
+
+    it 'does not everlap different times' do
+      event_1 = Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
+      event_2 = Event.new('2018-12-19 10:30:00', '2018-12-19 11:30:00')
+      expect(subject.overlaps_time?(event_1, event_2)).to eq false
+    end
+
+    it 'does not everlap adjacent times' do
+      event_1 = Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
+      event_2 = Event.new('2018-12-19 17:00:00', '2018-12-19 18:30:00')
+      expect(subject.overlaps_time?(event_1, event_2)).to eq false
+    end
   end
 
   describe '#not_booked' do

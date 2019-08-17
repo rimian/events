@@ -25,7 +25,7 @@ RSpec.describe Event do
     end
   end
 
-  describe '#' do
+  describe '#to_range' do
     it 'has period of the day' do
       event = described_class.new('23 Dec 2018 1:30:00', '23 Dec 2018 2:30:00')
       expect(event.to_range).to eq((5400...9000))

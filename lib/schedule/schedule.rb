@@ -6,8 +6,8 @@ class Schedule
     @booked = []
   end
 
-  def overlaps?(time1, time2)
-    time1.overlaps?(time2)
+  def overlaps_time?(event_1, event_2)
+    overlaps?(event_1.to_range, event_2.to_range)
   end
 
   def weekly_schedule
@@ -24,5 +24,11 @@ class Schedule
   def not_booked
     days_booked = weekly_schedule.map.with_index { |day, i| i unless day.empty? }.compact
     events.reject { |e| days_booked.include?(e.wday) }
+  end
+
+  private
+
+  def overlaps?(time_1, time_2)
+    time_1.overlaps?(time_2)
   end
 end
