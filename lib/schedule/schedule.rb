@@ -25,13 +25,19 @@ class Schedule
   end
 
   def not_booked
-    events.reject do |available_event|
-      clashes = booked.select do |booked_event|
-        clashes?(available_event, booked_event)
+
+    available = events.reject do |available_event|
+      clashes = false
+
+      booked.select do |booked_event|
+        clashes = clashes?(available_event, booked_event)
+        break if clashes
       end
 
-      clashes.length.positive?
+      clashes
     end
+
+    available.map(&:to_s)
   end
 
   private

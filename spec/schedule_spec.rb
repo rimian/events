@@ -14,19 +14,19 @@ RSpec.describe Schedule do
     it 'has all the events when nothing is booked' do
       subject.events << Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
       subject.booked = []
-      expect(subject.not_booked).to eq subject.events
+      expect(subject.not_booked).to eq subject.events.map(&:to_s)
     end
 
     it 'does not clash when the events do not clash on the same ady' do
       subject.events << Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
       subject.booked << Event.new('2018-12-19 18:00:00', '2018-12-19 19:00:00')
-      expect(subject.not_booked).to eq subject.events
+      expect(subject.not_booked).to eq subject.events.map(&:to_s)
     end
 
     it 'does not clash when the events do not clash on different days' do
       subject.events << Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
       subject.booked << Event.new('2018-12-20 16:00:00', '2018-12-20 17:00:00')
-      expect(subject.not_booked).to eq subject.events
+      expect(subject.not_booked).to eq subject.events.map(&:to_s)
     end
 
     it 'does not show the event that clashes on the same actual day' do
@@ -39,6 +39,26 @@ RSpec.describe Schedule do
       subject.events << Event.new('2018-12-19 16:00:00', '2018-12-19 17:00:00')
       subject.booked << Event.new('2018-12-26 16:15:00', '2018-12-26 15:00:00')
       expect(subject.not_booked).to be_empty
+    end
+
+    it 'gives a list of events' do
+      already_booked = [
+        { start: '2018-12-19 16:00:00', end: '2018-12-19 17:00:00' },
+        { start: '2018-12-20 9:00:00', end: '2018-12-20 10:00:00' },
+        { start: '2018-12-21 13:00:00', end: '2018-12-21 13:30:00' }
+      ]
+
+      available = [
+        { start: '2018-12-19 16:00:00', end: '2018-12-19 17:00:00' },
+        { start: '2018-12-20 9:30:00', end: '2018-12-20 11:30:00' },
+        { start: '2018-12-28 13:00:00', end: '2018-12-28 15:00:00' },
+        { start: '2018-12-29 13:00:00', end: '2018-12-29 14:00:00' }
+      ]
+
+      subject.booked = already_booked.map { |dates| Event.new(dates[:start], dates[:end]) }
+      subject.events = available.map { |dates| Event.new(dates[:start], dates[:end]) }
+
+      expect(subject.not_booked).to eq [subject.events.last.to_s]
     end
   end
 
