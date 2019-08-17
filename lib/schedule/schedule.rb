@@ -6,29 +6,33 @@ class Schedule
     @booked = []
   end
 
-  def overlaps_time?(event_1, event_2)
-    overlaps?(event_1.time_to_range, event_2.time_to_range)
+  def overlaps_time?(event_one, event_two)
+    overlaps?(event_one.time_to_range, event_two.time_to_range)
   end
 
   def weekly_schedule
-    days = (0..6).to_a.map { [] }
+    week = { sun: [], mon: [], tue: [], wed: [], thu: [], fri: [], sat: [] }
 
     booked.each do |event|
-      # TODO: push time on to schedule
-      days[event.wday] << 'hh:ss'
+      week[event.week_day.downcase.to_sym] << event.time_to_range
     end
 
-    days
+    week
   end
 
   def not_booked
-    days_booked = weekly_schedule.map.with_index { |day, i| i unless day.empty? }.compact
-    events.reject { |e| days_booked.include?(e.wday) }
+    events.reject do |available_event|
+      clashes = booked.select do |booked_event|
+        overlaps_time?(available_event, booked_event)
+      end
+
+      clashes.length.positive?
+    end
   end
 
   private
 
-  def overlaps?(time_1, time_2)
-    time_1.overlaps?(time_2)
+  def overlaps?(time_one, time_two)
+    time_one.overlaps?(time_two)
   end
 end

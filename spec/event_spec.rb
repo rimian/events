@@ -13,15 +13,15 @@ RSpec.describe Event do
     expect(subject.end_date).to be_kind_of DateTime
   end
 
-  describe '#wday' do
+  describe '#week_day' do
     it 'has a Sunday week day' do
       event = described_class.new('Sun, 23 Dec 2018 16:30:01', 'Sun, 23 Dec 2018 16:30:01')
-      expect(event.wday).to eq 0
+      expect(event.week_day).to eq 'Sun'
     end
 
     it 'has a Monday week day' do
       event = described_class.new('24 Dec 2018', '24 Dec 2018')
-      expect(event.wday).to eq 1
+      expect(event.week_day).to eq 'Mon'
     end
   end
 

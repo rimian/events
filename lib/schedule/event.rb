@@ -11,8 +11,8 @@ class Event
     "start: #{start_date.strftime(format)}, end: #{end_date.strftime(format)}"
   end
 
-  def wday
-    start_date.wday
+  def week_day
+    start_date.strftime('%a')
   end
 
   def time_to_range
