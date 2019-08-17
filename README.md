@@ -45,3 +45,8 @@ Run it:
 * The events only have attributes: start and end dates.
 * The list of events is formatted correctly
 * An event has a start and end on the same day
+
+# Improvements
+
+* Parse the dates and send `DateTime` to `Events`
+* Support events on more than one day
